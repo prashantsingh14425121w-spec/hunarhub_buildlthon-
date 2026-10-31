@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-heading: 'Manrope', system-ui, -apple-system, sans-serif;
+    --font-body: 'Hanken Grotesk', system-ui, -apple-system, sans-serif;
+    --color-primary: #134e3a;
+    --color-primary-dark: #003626;
+    --color-secondary: #059669;
+    --color-surface: #fafaf9;
+    --color-charcoal: #1c1f1d;
+  }
+
+  body {
+    font-family: var(--font-body);
+    background-color: #fafaf9;
+    color: #1c1f1d;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    letter-spacing: -0.015em;
+  }
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}

@@ -1,0 +1,6 @@
+{
+  "name": "HunarHub — Kaam Bolega, Stars Nahi",
+  "description": "Evidence-based skilled-worker marketplace with photo verification, transparent pricing, and zero star ratings.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
