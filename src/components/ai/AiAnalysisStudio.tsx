@@ -21,6 +21,7 @@ import {
 import { loadAnswerKeys, loadWorkQualityGuidelines } from '../../data/dataLoader';
 import { JobPhotoAnswerKeyRecord } from '../../types';
 import { ImageWithFallback } from '../common/ImageWithFallback';
+import { ListenButton } from '../common/ListenButton';
 
 interface PhotoAnalysisResult {
   quality: 'Good' | 'Average' | 'Poor';
@@ -296,9 +297,17 @@ export function AiAnalysisStudio() {
                             <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
                             <span>Expected Quality: {result.quality}</span>
                           </span>
-                          <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-200 text-emerald-900">
-                            Ground Truth Key
-                          </span>
+                          <div className="flex items-center gap-1.5">
+                            <ListenButton
+                              id={`benchmark-eval-${photo.photoId}`}
+                              text={`Benchmark expected answer for ${photo.trade}. Expected quality is ${result.quality}. Visible evidence: ${result.visibleEvidence}. ${result.tradeAssessment ? 'Trade assessment: ' + result.tradeAssessment : ''}`}
+                              label="Listen"
+                              variant="subtle"
+                            />
+                            <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-200 text-emerald-900">
+                              Ground Truth Key
+                            </span>
+                          </div>
                         </div>
                         <p className="text-[11px] text-emerald-900 leading-relaxed">
                           <strong>Benchmark Evidence:</strong> {result.visibleEvidence}
@@ -420,9 +429,16 @@ export function AiAnalysisStudio() {
                   <span className="font-bold text-sm text-emerald-950">
                     Live Audit Result: {customResult.quality} Quality
                   </span>
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-200 text-emerald-900">
-                    Confidence: {(customResult.confidence * 100).toFixed(0)}%
-                  </span>
+                  <div className="flex items-center gap-2">
+                    <ListenButton
+                      id="custom-vision-audit-result"
+                      text={`Live Gemini vision audit result: ${customResult.quality} Quality. Explanation: ${customResult.explanation}. Visible evidence: ${customResult.visibleEvidence}. Trade assessment: ${customResult.tradeAssessment}.`}
+                      label="Listen"
+                    />
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-200 text-emerald-900">
+                      Confidence: {(customResult.confidence * 100).toFixed(0)}%
+                    </span>
+                  </div>
                 </div>
                 <p className="text-[#3f4541] leading-relaxed">
                   <strong>Explanation:</strong> {customResult.explanation}
@@ -571,9 +587,17 @@ export function AiAnalysisStudio() {
               <span className="font-extrabold text-sm text-[#1c1f1d]">
                 Multi-Dimensional Evidence Extraction Results
               </span>
-              <span className="text-[10px] px-2 py-0.5 rounded bg-stone-200 text-[#717974] font-mono">
-                Source: {feedbackResult.source}
-              </span>
+              <div className="flex items-center gap-2">
+                <ListenButton
+                  id="feedback-sentiment-audit-result"
+                  text={`AI customer feedback and price honesty audit: ${feedbackResult.summaryExplanation}. Honesty and billing audit: ${feedbackResult.extraChargeJustified ? 'Quoted price honored or additional scope was legitimate.' : 'Unjustified extra charge detected: Upfront price was artificially low.'}. Dimensions: Punctuality is ${feedbackResult.punctuality.sentiment}. Cleanliness is ${feedbackResult.cleanliness.sentiment}. Behaviour is ${feedbackResult.behaviour.sentiment}. Communication is ${feedbackResult.communication.sentiment}. Price honesty is ${feedbackResult.priceHonesty.sentiment}.`}
+                  language={feedbackInput.includes('hai') || feedbackInput.includes('aaye') || feedbackInput.includes('karke') ? 'hi' : 'en'}
+                  label="Listen"
+                />
+                <span className="text-[10px] px-2 py-0.5 rounded bg-stone-200 text-[#717974] font-mono">
+                  Source: {feedbackResult.source}
+                </span>
+              </div>
             </div>
 
             <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">

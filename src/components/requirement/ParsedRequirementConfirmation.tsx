@@ -17,6 +17,7 @@ import {
   AlertCircle,
 } from 'lucide-react';
 import { CustomerRequirement, Trade } from '../../types';
+import { ListenButton } from '../common/ListenButton';
 
 interface ParsedRequirementConfirmationProps {
   initialData: CustomerRequirement;
@@ -77,14 +78,22 @@ export function ParsedRequirementConfirmation({
           </p>
         </div>
 
-        <button
-          type="button"
-          onClick={() => setIsEditing(!isEditing)}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-[#134e3a] bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 transition-colors cursor-pointer"
-        >
-          <Edit3 className="w-3.5 h-3.5" />
-          <span>{isEditing ? 'Close Editing' : 'Edit Fields'}</span>
-        </button>
+        <div className="flex items-center gap-2">
+          <ListenButton
+            id={`ai-parsed-req-${initialData.id}`}
+            text={`AI parsed requirement details: Extracted skilled trade is ${trade}. Diagnosed task is ${task}. Urgency level is ${urgency}. Work location is ${area}. Estimated scope is ${quantity}. Details: ${details}.`}
+            language={initialData.detectedLanguage === 'Hindi' ? 'hi' : 'en'}
+            label="Listen"
+          />
+          <button
+            type="button"
+            onClick={() => setIsEditing(!isEditing)}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-[#134e3a] bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 transition-colors cursor-pointer"
+          >
+            <Edit3 className="w-3.5 h-3.5" />
+            <span>{isEditing ? 'Close Editing' : 'Edit Fields'}</span>
+          </button>
+        </div>
       </div>
 
       {/* Raw Customer Text Bubble */}

@@ -20,6 +20,7 @@ import {
 } from 'lucide-react';
 import { CustomerRequirement, WorkerRecord } from '../../types';
 import { EvaluatedBid } from '../../data/bidEngine';
+import { ListenButton } from '../common/ListenButton';
 
 interface CompareWorkerBidsProps {
   requirement: CustomerRequirement;
@@ -79,9 +80,17 @@ export function CompareWorkerBids({
               </p>
             </div>
           </div>
-          <span className="shrink-0 px-2.5 py-1 rounded-full bg-[#134e3a] text-white text-[11px] font-bold">
-            Zero Hidden Fees Guarantee
-          </span>
+          <div className="shrink-0 flex items-center gap-2">
+            <ListenButton
+              id="bid-ranking-rationale"
+              text="Evidence-Based Protection: Why Ramesh ranks above Raju. Platforms that sort by cheapest quote reward deceptive contractors. Raju bids ₹370 but has a verified 30 to 45% final bill inflation track record. Ramesh has 28 verified jobs with 100% price honesty."
+              label="Listen"
+              variant="compact"
+            />
+            <span className="px-2.5 py-1 rounded-full bg-[#134e3a] text-white text-[11px] font-bold">
+              Zero Hidden Fees Guarantee
+            </span>
+          </div>
         </div>
       </div>
 
@@ -214,15 +223,23 @@ export function CompareWorkerBids({
 
               {/* Recommendation Note */}
               <div className="mt-3 p-3 rounded-xl bg-[#fafaf9] border border-[#e5e7eb] text-xs text-[#3f4541] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
-                <div>
+                <div className="flex-1">
                   <strong>Evaluation Note:</strong> {bid.recommendationNote}
                 </div>
-                <button
-                  onClick={() => onViewWorkerProfile(bid.worker)}
-                  className="text-xs text-[#134e3a] font-bold hover:underline shrink-0"
-                >
-                  View Full Evidence History →
-                </button>
+                <div className="flex items-center gap-2 shrink-0">
+                  <ListenButton
+                    id={`bid-eval-${bid.id}`}
+                    text={`Evaluation note for ${bid.worker.name}: ${bid.recommendationNote}. ${bid.extraChargeWarning ? 'Warning: ' + bid.extraChargeWarning : ''}`}
+                    label="Listen"
+                    variant="compact"
+                  />
+                  <button
+                    onClick={() => onViewWorkerProfile(bid.worker)}
+                    className="text-xs text-[#134e3a] font-bold hover:underline shrink-0"
+                  >
+                    View Full Evidence History →
+                  </button>
+                </div>
               </div>
 
               {/* 5-Component Score Mini-Metrics */}

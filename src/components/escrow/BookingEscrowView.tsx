@@ -24,6 +24,7 @@ import {
 import { BookingSession, WorkerRecord } from '../../types';
 import { recalculateWorkerScoreAfterJob, saveBookingSession } from '../../data/escrowStore';
 import { ImageWithFallback } from '../common/ImageWithFallback';
+import { ListenButton } from '../common/ListenButton';
 
 interface BookingEscrowViewProps {
   session: BookingSession;
@@ -692,10 +693,18 @@ export function BookingEscrowView({
           </div>
 
           {/* Mathematical Explanation */}
-          <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-xs text-emerald-950 space-y-1">
-            <div className="font-bold flex items-center gap-1.5">
-              <CheckCircle2 className="w-4 h-4 text-emerald-700" />
-              <span>Mathematical Explanation of Score Change:</span>
+          <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-xs text-emerald-950 space-y-2">
+            <div className="flex items-center justify-between">
+              <div className="font-bold flex items-center gap-1.5">
+                <CheckCircle2 className="w-4 h-4 text-emerald-700" />
+                <span>Mathematical Explanation of Score Change:</span>
+              </div>
+              <ListenButton
+                id={`escrow-recalc-${session.bookingId}`}
+                text={`Dynamic mathematical score recalculation explanation: ${recalcResult.explanation}`}
+                label="Listen"
+                variant="compact"
+              />
             </div>
             <p className="leading-relaxed text-emerald-900 text-[11px]">
               {recalcResult.explanation}
